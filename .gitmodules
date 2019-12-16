@@ -1,0 +1,6 @@
+[submodule "node_tools"]
+	path = node_tools
+	url = git@github.com:lsby/node_tools.git
+[submodule "node_api"]
+	path = node_api
+	url = git@github.com:lsby/node_api.git
