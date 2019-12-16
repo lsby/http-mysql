@@ -1,0 +1,8 @@
+webapp:
+  build: .
+  ports:
+    - "3000:3000"
+  volumes:
+    - "/code/node_modules"
+    - "/code/node_api/node_modules"
+    - "/code/node_tools/node_modules"
