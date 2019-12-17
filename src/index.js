@@ -1,11 +1,12 @@
 var express = require('express')
-var router = express.Router()
+var app = express()
 var mysql = require('mysql')
 var 扩展 = require('../node_api/index')
 
-var mysqlConf = require('../conf/mysql')
-
-router.post('/query', async function (req, res, next) {
+app.all('/test', function (req, res) {
+    res.send('ok')
+})
+app.post('/query', async function (req, res) {
     var sql = req.body.sql
     if (sql == null || sql == '')
         return res.send({ err: true, data: '无效的sql' })
@@ -17,8 +18,8 @@ router.post('/query', async function (req, res, next) {
     }))
     return res.send({ err, data })
 })
-router.post('/exec', function (req, res, next) {
-    res.send('respond with a resource')
+app.post('/exec', function (req, res) {
+    res.send('ok')
 })
 
-module.exports = router
+app.listen(80, _ => console.log('启动完成'))

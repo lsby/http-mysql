@@ -2,32 +2,33 @@ version: '3.1'
 
 services:
   webapp:
-    build: .
+    image: lsby/http-mysql
     ports:
-      - "3000:3000"
+      - "80:80"
     volumes:
-      - "/code/node_modules"
-      - "/code/node_api/node_modules"
-      - "/code/node_tools/node_modules"
+      - ".:/root/pro"
+      - "/root/run"
+      - "/usr/local/lib/node_modules"
+      - "/usr/local/bin"
     restart: always
 
-  mysql:
-    image: mysql:5.6
-    ports:
-      - "3306:3306"
-    volumes:
-      - "/var/lib/mysql"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
-    restart: always
+  # mysql:
+  #   image: mysql:5.6
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - "/var/lib/mysql"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: db
+  #     MYSQL_USER: user
+  #     MYSQL_PASSWORD: userpassword
+  #   restart: always
 
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
-    environment:
-      ADMINER_DEFAULT_SERVER: mysql
-    restart: always
+  # adminer:
+  #   image: adminer
+  #   ports:
+  #     - 8080:8080
+  #   environment:
+  #     ADMINER_DEFAULT_SERVER: mysql
+  #   restart: always

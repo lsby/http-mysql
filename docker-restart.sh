@@ -1,3 +1,2 @@
-docker-compose stop
-docker-compose up
-docker-compose logs -f
+bash docker-stop.sh
+bash docker-start.sh
