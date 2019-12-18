@@ -1,21 +1,31 @@
 var express = require('express')
 var app = express()
-var mysql = require('mysql')
+var bodyParser = require('body-parser')
 var 扩展 = require('../node_api/index')
+var mysql = require('mysql')
+var mysqlConf = require('../conf/mysql')
+var pool = mysql.createPool(mysqlConf)
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 app.all('/test', function (req, res) {
-    res.send('ok')
+    res.send(req.body.data)
 })
 app.post('/query', async function (req, res) {
     var sql = req.body.sql
     if (sql == null || sql == '')
-        return res.send({ err: true, data: '无效的sql' })
+        return res.send({ err: true, data: 'sql不能为空' })
 
-    var conn = mysql.createConnection(mysqlConf)
-    var { err, data } = await 扩展.其他工具.回调包装(back => conn.query(sql, (err, results, fields) => {
-        if (err) return back(err)
-        return back(null, { results, fields })
-    }))
+    var { data: conn } = await 扩展.其他工具.回调包装(back => pool.getConnection(back))
+    var { err, data } = await 扩展.其他工具.回调包装_fin(back => conn.query(sql,
+        (err, results, fields) => {
+            if (err) return back(err)
+            return back(null, { results, fields })
+        }
+    ), _ => conn.release())
+
     return res.send({ err, data })
 })
 app.post('/exec', function (req, res) {

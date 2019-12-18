@@ -1,2 +1,2 @@
 docker-compose up -d --remove-orphans
-docker-compose logs -f
+docker-compose logs -f --tail="100"
