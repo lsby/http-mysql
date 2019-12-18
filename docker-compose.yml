@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   webapp:
-    image: lsby/http-mysql
+    image: lsby/nodejs
     ports:
       - "80:80"
     volumes:

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -euxo pipefail
 
 echo '======================='
@@ -6,7 +6,7 @@ echo '脚本开始'
 echo '======================='
 
 echo '复制项目文件'
-tar -cf pro.tar --exclude=node_modules --exclude=.git --exclude=pro.tar --exclude-vcs *
+tar -cf pro.tar --exclude=node_modules --exclude=.git --exclude=pro.tar *
 mv pro.tar /root/run
 cd /root/run
 tar -xf pro.tar

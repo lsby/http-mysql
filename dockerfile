@@ -1,5 +1,5 @@
-FROM node:12.13.1
+FROM node:alpine
 
 WORKDIR /root
 
-CMD bash /root/pro/docker/run.sh
+CMD sh /root/pro/docker/run.sh
