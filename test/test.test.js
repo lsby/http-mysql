@@ -8,9 +8,77 @@ it('post', async function () {
     var { data } = await post('http://127.0.0.1:80/test')({ data: 'hello' })
     expect(data.body).eq('hello')
 })
-it('select', async function () {
-    var { data } = await post('http://127.0.0.1:80/query')({ sql: 'select 1 as a' })
+it('基本', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({ sql: `select 1 as a` })
     var { results, fields } = data.body.调用(JSON.parse).data
-    console.log(fields)
     expect(results.调用(扩展.对象扩展.到字符串)).eq([{ "a": 1 }].调用(扩展.对象扩展.到字符串))
+})
+it('创建表', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `
+            CREATE TABLE IF NOT EXISTS tablename(
+            id INT UNSIGNED AUTO_INCREMENT,
+            data VARCHAR(100) NOT NULL,
+            PRIMARY KEY (id)
+            )
+    ` })
+    var { results, fields } = data.body.调用(JSON.parse).data
+})
+it('插入', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `INSERT INTO tablename SET ?`,
+        values: {
+            data: 'a',
+        }
+    })
+    var { results, fields } = data.body.调用(JSON.parse).data
+    expect(results.insertId).eq(1)
+    expect(results.affectedRows).eq(1)
+})
+it('批量插入', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `INSERT INTO tablename (??) VALUES ?`,
+        values: ['data',
+            [['b'],
+            ['c'],
+            ['d'],]
+        ]
+    })
+    var { results, fields } = data.body.调用(JSON.parse).data
+    expect(results.insertId).eq(2)
+    expect(results.affectedRows).eq(3)
+})
+it('查询全部', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `select * from ??`,
+        values: ['tablename']
+    })
+    var { results, fields } = data.body.调用(JSON.parse).data
+    expect(
+        results.调用(扩展.对象扩展.到字符串)
+    ).eq([
+        { id: 1, data: 'a' },
+        { id: 2, data: 'b' },
+        { id: 3, data: 'c' },
+        { id: 4, data: 'd' },
+    ].调用(扩展.对象扩展.到字符串))
+})
+it('查询', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `select * from ?? where id=? and data=?`,
+        values: ['tablename', 1, 'a']
+    })
+    var { results, fields } = data.body.调用(JSON.parse).data
+    expect(
+        results.调用(扩展.对象扩展.到字符串)
+    ).eq([
+        { id: 1, data: 'a' },
+    ].调用(扩展.对象扩展.到字符串))
+})
+it('删除表', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `DROP TABLE ??`,
+        values: ['tablename']
+    })
+    var { results, fields } = data.body.调用(JSON.parse).data
 })

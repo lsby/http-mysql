@@ -17,10 +17,9 @@ app.post('/query', async function (req, res) {
     var sql = req.body.sql
     if (sql == null || sql == '')
         return res.send({ err: true, data: 'sql不能为空' })
-    // var args = req.body.sql
 
-    var { data: conn } = await 扩展.其他工具.回调包装(pool.getConnection)
-    var { err, data } = await 扩展.其他工具.回调包装_fin(back => conn.query(sql,
+    var { data: conn } = await 扩展.其他工具.回调包装(back => pool.getConnection(back))
+    var { err, data } = await 扩展.其他工具.回调包装_fin(back => conn.query(req.body,
         (err, results, fields) => {
             if (err) return back(err)
             return back(null, { results, fields })
