@@ -11,5 +11,6 @@ it('post', async function () {
 it('select', async function () {
     var { data } = await post('http://127.0.0.1:80/query')({ sql: 'select 1 as a' })
     var { results, fields } = data.body.调用(JSON.parse).data
+    console.log(fields)
     expect(results.调用(扩展.对象扩展.到字符串)).eq([{ "a": 1 }].调用(扩展.对象扩展.到字符串))
 })
