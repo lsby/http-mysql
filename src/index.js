@@ -11,19 +11,23 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.post('/query', async function (req, res) {
-    var sql = req.body.sql
-    if (sql == null || sql == '')
-        return res.send({ err: true, data: 'sql不能为空' })
+    try {
+        var sql = req.body.sql
+        if (sql == null || sql == '')
+            throw 'sql不能为空'
 
-    var { data: conn } = await 扩展.其他工具.回调包装(back => pool.getConnection(back))
-    var { err, data } = await 扩展.其他工具.回调包装_fin(back => conn.query(req.body,
-        (err, results, fields) => {
-            if (err) return back(err)
-            return back(null, { results, fields })
-        }
-    ), conn.release)
+        var { data: conn } = await 扩展.其他工具.回调包装(back => pool.getConnection(back))
+        var { err, data } = await 扩展.其他工具.回调包装_fin(back => conn.query(req.body,
+            (err, results, fields) => {
+                if (err) return back(err)
+                return back(null, { results, fields })
+            }
+        ), conn.release)
 
-    return res.send({ err, data })
+        res.send({ err, data })
+    } catch (e) {
+        res.send({ err: e, data: null })
+    }
 })
 
 app.listen(80, _ => console.log('启动完成'))

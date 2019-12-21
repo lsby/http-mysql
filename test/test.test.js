@@ -4,6 +4,14 @@ var 扩展 = require('../node_api/index')
 
 var post = 工具.网络.post_urlencoded
 
+it('错误sql的情况', async function () {
+    var { data } = await post('http://127.0.0.1:80/query')({
+        sql: `aaaaaaaaaa`
+    })
+    var { err, data } = data.body.调用(JSON.parse)
+    expect(err.code).eq('ER_PARSE_ERROR')
+    expect(data).eq(null)
+})
 it('创建表', async function () {
     var { data } = await post('http://127.0.0.1:80/query')({
         sql: `
