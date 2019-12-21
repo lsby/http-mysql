@@ -45,3 +45,4 @@ docker用:
 
 - https
 - ip白名单
+- 鉴权
