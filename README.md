@@ -40,3 +40,8 @@ docker用:
 - conf/docker-use-cnpm:是否使用cnpm(文件存在即使用,下同)
 - conf/docker-use-rmLogOnStart:启动时是否删除日志文件
 - conf/docker-use-test:启动时是否运行测试
+
+## TODO
+
+- https
+- ip白名单
