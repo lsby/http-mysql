@@ -1,5 +1,5 @@
-bash docker-stop.sh
+docker-compose stop
 docker-compose rm -f
 docker-compose down
-docker rmi lsby/nodejs
-docker build -t lsby/nodejs .
+docker rmi lsby/http_mysql
+docker build -t lsby/http_mysql .

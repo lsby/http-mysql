@@ -10,9 +10,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-app.all('/test', function (req, res) {
-    res.send(req.body.data)
-})
 app.post('/query', async function (req, res) {
     var sql = req.body.sql
     if (sql == null || sql == '')

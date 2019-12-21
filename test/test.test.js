@@ -4,15 +4,6 @@ var 扩展 = require('../node_api/index')
 
 var post = 工具.网络.post_urlencoded
 
-it('post', async function () {
-    var { data } = await post('http://127.0.0.1:80/test')({ data: 'hello' })
-    expect(data.body).eq('hello')
-})
-it('基本', async function () {
-    var { data } = await post('http://127.0.0.1:80/query')({ sql: `select 1 as a` })
-    var { results, fields } = data.body.调用(JSON.parse).data
-    expect(results.调用(扩展.对象扩展.到字符串)).eq([{ "a": 1 }].调用(扩展.对象扩展.到字符串))
-})
 it('创建表', async function () {
     var { data } = await post('http://127.0.0.1:80/query')({
         sql: `

@@ -2,14 +2,11 @@ version: '2'
 
 services:
   webapp:
-    image: lsby/nodejs
+    image: lsby/http_mysql
     ports:
       - "80:80"
     volumes:
-      - ".:/root/pro"
-      - "/root/run"
-      - "/usr/local/lib/node_modules"
-      - "/usr/local/bin"
+      - "./conf:/root/code/conf"
     depends_on:
       - "mysql"
     links:
