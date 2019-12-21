@@ -14,10 +14,17 @@
 
 ## 启动
 
-### 本地
+首先先执行
 
 ```shell
 sh git-init-submodule.sh
+```
+
+下载子仓库
+
+### 本地
+
+```shell
 npm i
 node src/index.js
 
