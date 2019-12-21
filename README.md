@@ -26,7 +26,7 @@ sh docker-restart.sh
 
 ## 使用
 
-- 使用`urlencoded`形式发送`post`请求到`/query`
+- 使用`urlencoded`发送`post`请求到`/query`
 - 形式参考`test/test.test.js`文件和[mysql库](https://www.npmjs.com/package/mysql)
 
 ## 配置
