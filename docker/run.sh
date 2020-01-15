@@ -5,25 +5,32 @@ echo '======================='
 echo '脚本开始'
 echo '======================='
 
-if [ -f '/root/code/conf/docker-use-cnpm' ];then
+echo '定义变量'
+appPath=/root/code
+dockerFlag=/root/code/docker/flag
+
+echo '替换配置文件'
+\cp -f $appPath/docker/conf/* $appPath/conf/
+
+if [ -f "$dockerFlag/使用cnpm" ];then
     echo '使用cnpm'
-    if [ ! -f '/root/code/docker/installed-cnpm' ];then
+    if [ ! -f "$dockerFlag/已安装cnpm" ];then
         npm install -g cnpm --registry=https://registry.npm.taobao.org
-        echo '' > /root/code/docker/installed-cnpm
+        echo '' > $dockerFlag/已安装cnpm
     fi
     alias npm='cnpm'
 fi
-if [ ! -f '/root/code/docker/installed-npm-g' ];then
+if [ ! -f "$dockerFlag/已安装全局依赖" ];then
     echo '安装全局依赖'
     npm i -g pm2
-    echo '' > /root/code/docker/installed-npm-g
+    echo '' > $dockerFlag/已安装全局依赖
 fi
-if [ ! -f '/root/code/docker/installed-npm' ];then
+if [ ! -f "$dockerFlag/已安装依赖" ];then
     echo '安装依赖'
     npm i 
-    echo '' > /root/code/docker/installed-npm
+    echo '' > $dockerFlag/已安装依赖
 fi
-if [ -f '/root/code/conf/docker-use-rmLogOnStart' ];then
+if [ -f "$dockerFlag/启动时删除pm2日志" ];then
     echo '删除pm2日志'
     rm -rf /root/.pm2/*.log
     rm -rf /root/.pm2/logs
@@ -35,13 +42,13 @@ pm2 start src/index.js --name app
 echo '打印日志'
 pm2 logs &
 
-if [ -f '/root/code/conf/docker-use-test' ];then
+if [ -f "$dockerFlag/使用测试" ];then
     echo '使用测试'
-    if [ ! -f '/root/code/docker/installed-mocha' ];then
+    if [ ! -f "$dockerFlag/已安装mocha" ];then
         npm i -g mocha
-        echo '' > /root/code/docker/installed-mocha
+        echo '' > $dockerFlag/已安装mocha
     fi
-    mocha
+    mocha --delay
 fi
 
 tail -f /dev/null

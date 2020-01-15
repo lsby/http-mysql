@@ -1,24 +1,10 @@
 version: '2'
 
 services:
-  webapp:
-    image: lsby/http_mysql
-    ports:
-      - "80:80"
-    volumes:
-      - "./conf:/root/code/conf"
-    depends_on:
-      - "mysql"
-    links:
-      - "mysql:mysqlhost"
-    restart: always
-
   mysql:
     image: mysql:5.6
     ports:
       - "3306:3306"
-    volumes:
-      - "/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db

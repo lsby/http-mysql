@@ -1,10 +1,12 @@
 var express = require('express')
-var app = express()
 var bodyParser = require('body-parser')
-var 扩展 = require('../node_api/index')
 var mysql = require('mysql')
+var 扩展 = require('../node_api/index')
 var mysqlConf = require('../conf/mysql')
+var app配置 = require('../conf/app')
+
 var pool = mysql.createPool(mysqlConf)
+var app = express()
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -22,7 +24,7 @@ app.post('/query', async function (req, res) {
                 if (err) return back(err)
                 return back(null, { results, fields })
             }
-        ), conn.release)
+        ), _ => conn.release())
 
         res.send({ err, data })
     } catch (e) {
@@ -30,4 +32,4 @@ app.post('/query', async function (req, res) {
     }
 })
 
-app.listen(80, _ => console.log('启动完成'))
+app.listen(app配置.端口, _ => console.log(`启动完成 端口:${app配置.端口}`))
