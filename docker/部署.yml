@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "../../docker:/root/code/docker"
+      - "./config:/root/code/config"
     depends_on:
       - "mysql"
     links:

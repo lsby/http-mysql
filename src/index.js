@@ -1,11 +1,11 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var mysql = require('mysql')
-var 扩展 = require('../node_api/index')
-var mysqlConf = require('../conf/mysql')
-var app配置 = require('../conf/app')
+var 扩展 = require('../lib/node_api/index')
+var mysql配置 = require('../config/mysql')
+var app配置 = require('../config/app')
 
-var pool = mysql.createPool(mysqlConf)
+var pool = mysql.createPool(mysql配置)
 var app = express()
 
 app.use(bodyParser.urlencoded({

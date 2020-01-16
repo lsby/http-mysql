@@ -7,10 +7,10 @@ echo '======================='
 
 echo '定义变量'
 appPath=/root/code
-dockerFlag=/root/code/docker/flag
+dockerFlag=/root/code/config/flag
 
-echo '替换配置文件'
-\cp -f $appPath/docker/conf/* $appPath/conf/
+# echo '替换配置文件'
+# \cp -rf $appPath/docker/config/* $appPath/config/
 
 if [ -f "$dockerFlag/使用cnpm" ];then
     echo '使用cnpm'
@@ -44,11 +44,7 @@ pm2 logs &
 
 if [ -f "$dockerFlag/使用测试" ];then
     echo '使用测试'
-    if [ ! -f "$dockerFlag/已安装mocha" ];then
-        npm i -g mocha
-        echo '' > $dockerFlag/已安装mocha
-    fi
-    mocha --delay
+    ./node_modules/mocha/bin/mocha --delay
 fi
 
 tail -f /dev/null

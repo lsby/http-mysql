@@ -1,6 +1,6 @@
 var expect = require('chai').expect
-var 工具 = require('../node_tools/index')
-var 扩展 = require('../node_api/index')
+var 工具 = require('../lib/node_tools/index')
+var 扩展 = require('../lib/node_api/index')
 
 var post = 工具.网络.post_urlencoded
 
