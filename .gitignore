@@ -102,4 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-docker/flag/已安装*
+
+# ===================
+docker/config/flag/已安装*
