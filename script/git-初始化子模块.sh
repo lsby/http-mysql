@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 git submodule | awk '{print $2}' | xargs rm -rf
 git submodule sync

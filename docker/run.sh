@@ -2,35 +2,29 @@
 set -euxo pipefail
 
 echo '======================='
-echo '脚本开始'
+echo '运行时'
 echo '======================='
 
-echo '定义变量'
-appPath=/root/code
-dockerFlag=/root/code/config/flag
+echo '修改配置文件'
 
-# echo '替换配置文件'
-# \cp -rf $appPath/docker/config/* $appPath/config/
+echo "
+    module.exports = {
+        端口: '$appprot',
+    }
+" > config/app.js
 
-if [ -f "$dockerFlag/使用cnpm" ];then
-    echo '使用cnpm'
-    if [ ! -f "$dockerFlag/已安装cnpm" ];then
-        npm install -g cnpm --registry=https://registry.npm.taobao.org
-        echo '' > $dockerFlag/已安装cnpm
-    fi
-    alias npm='cnpm'
-fi
-if [ ! -f "$dockerFlag/已安装全局依赖" ];then
-    echo '安装全局依赖'
-    npm i -g pm2
-    echo '' > $dockerFlag/已安装全局依赖
-fi
-if [ ! -f "$dockerFlag/已安装依赖" ];then
-    echo '安装依赖'
-    npm i 
-    echo '' > $dockerFlag/已安装依赖
-fi
-if [ -f "$dockerFlag/启动时删除pm2日志" ];then
+echo "
+    module.exports = {
+        host: '$mysql_host',
+        user: '$mysql_user',
+        password: '$mysql_pwd',
+        database: '$mysql_db',
+        connectionLimit: '$mysql_link_limit',
+    }
+" > config/mysql.js
+
+if [ "$on_start_del_pm2log" = "true" ]
+then
     echo '删除pm2日志'
     rm -rf /root/.pm2/*.log
     rm -rf /root/.pm2/logs
@@ -42,7 +36,8 @@ pm2 start src/index.js --name app
 echo '打印日志'
 pm2 logs &
 
-if [ -f "$dockerFlag/使用测试" ];then
+if [ "$on_start_run_test" = "true" ]
+then
     echo '使用测试'
     ./node_modules/mocha/bin/mocha --delay
 fi
