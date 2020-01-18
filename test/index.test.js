@@ -9,7 +9,6 @@ it('错误sql的情况', async function () {
         sql: `aaaaaaaaaa`
     })
     var { err, data } = data.body.调用(JSON.parse)
-    console.log(err)
     expect(err.code).eq('ER_PARSE_ERROR')
     expect(data).eq(null)
 })
