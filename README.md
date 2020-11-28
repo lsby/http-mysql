@@ -17,7 +17,9 @@
 首先先执行
 
 ```shell
-sh git-init-submodule.sh
+git submodule | awk '{print $2}' | xargs rm -rf
+git submodule sync
+git submodule update --init --recursive
 ```
 
 下载子仓库
@@ -29,6 +31,7 @@ npm i
 node src/index.js
 
 # 要测试的话
+# 先弄个本地的mysql服务, 写到config/mysql.js配置文件中.
 npm i -g mocha
 mocha
 ```

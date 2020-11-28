@@ -126,4 +126,4 @@ it('删除表', async function () {
     var { results, fields } = data.body.调用(JSON.parse).data
 })
 
-setTimeout(run, 1000)
+// setTimeout(run, 1000)
