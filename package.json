@@ -1,22 +1,36 @@
 {
-  "name": "http-mysql",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node ./src/index",
-    "dev": "npx nodemon ./src/index.js",
-    "test": "npx mocha --bail"
-  },
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "~4.16.1",
-    "mysql": "^2.18.1",
-    "ramda": "^0.27.1",
-    "request": "^2.88.0"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^7.2.0",
-    "nodemon": "^2.0.2"
-  }
+    "name": "http-mysql",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node ./src/index",
+        "pm2_start": "npx cross-env NODE_ENV=production pm2 set pm2-logrotate:max_size 10M && cross-env NODE_ENV=production PORT=80 pm2 start node -e ./logs/error.log -l ./logs/out.log --name http_mysql ./src/index.js",
+        "pm2_restart": "npx pm2 restart http_mysql",
+        "pm2_stop": "npx pm2 stop http_mysql",
+        "pm2_rm": "npm run pm2_stop && pm2 delete http_mysql",
+        "pm2_list": "npx pm2 list",
+        "pm2_log": "npx pm2 logs",
+        "pm2_setlog": "npx pm2 set pm2-logrotate:max_size 10M",
+        "docker_build": "docker build --no-cache -t http_mysql .",
+        "docker_start": "docker-compose up -d --remove-orphans && npm run docker_log",
+        "docker_stop": "docker-compose stop",
+        "docker_log": "docker-compose logs -f --tail=\"100\"",
+        "docker_rm": "docker-compose stop && docker-compose rm -f",
+        "dev": "npx cross-env NODE_ENV=development nodemon ./src/index.js",
+        "test": "npx mocha --bail"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cross-env": "^7.0.3",
+        "express": "~4.16.1",
+        "mysql": "^2.18.1",
+        "ramda": "^0.27.1",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^7.2.0",
+        "nodemon": "^2.0.2",
+        "pm2": "^4.5.0"
+    }
 }
