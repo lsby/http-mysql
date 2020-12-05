@@ -1,3 +1,3 @@
 module.exports = {
-    端口: 80,
+    port: 80,
 }

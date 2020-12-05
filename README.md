@@ -14,8 +14,6 @@
 
 ## 启动
 
-首先先执行
-
 ### 本地
 
 ```shell
@@ -23,19 +21,27 @@ npm i
 npm run start
 ```
 
-### 测试
+### docker
+
+暂时还不行
+
+## 测试
 
 先弄个mysql,
 手动建个数据库,
 相关信息写到config/mysql.js配置文件中.
 
+执行:
+
+```shell
+npm run start
+```
+
+再开一个终端, 执行:
+
 ```shell
 npm run test
 ```
-
-### docker
-
-暂时还不行
 
 ## 使用
 
