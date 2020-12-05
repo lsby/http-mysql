@@ -14,16 +14,30 @@
 
 ## 启动
 
-### 本地
+### 简单启动
 
 ```shell
 npm i
 npm run start
 ```
 
-### docker
+### 使用pm2
 
-暂时还不行
+```shell
+npm run pm2_setlog
+npm run pm2_start
+```
+
+### 使用docker
+
+手动编译并启动
+
+```shell
+npm run docker_build
+npm run docker_start
+```
+
+或使用[镜像](https://hub.docker.com/r/lsby/http_mysql)
 
 ## 测试
 
@@ -56,7 +70,4 @@ npm run test
 
 - https
 - ip白名单
-- 鉴权
-- 日志
-- pm2启动
-- docker
+- 更好的日志
