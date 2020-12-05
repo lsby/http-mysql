@@ -1,7 +1,7 @@
 module.exports = {
-    host: '127.0.0.1',
+    host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'db',
+    database: 'test_db',
     connectionLimit: 10,
 }

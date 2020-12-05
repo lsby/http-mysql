@@ -1,6 +1,0 @@
-[submodule "node_tools"]
-	path = lib/node_tools
-	url = https://github.com/lsby/node_tools.git
-[submodule "node_api"]
-	path = lib/node_api
-	url = https://github.com/lsby/node_api.git

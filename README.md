@@ -16,33 +16,26 @@
 
 首先先执行
 
-```shell
-git submodule | awk '{print $2}' | xargs rm -rf
-git submodule sync
-git submodule update --init --recursive
-```
-
-下载子仓库
-
 ### 本地
 
 ```shell
 npm i
-node src/index.js
+npm run start
+```
 
-# 要测试的话
-# 先弄个本地的mysql服务, 写到config/mysql.js配置文件中.
-npm i -g mocha
-mocha
+### 测试
+
+先弄个mysql,
+手动建个数据库,
+相关信息写到config/mysql.js配置文件中.
+
+```shell
+npm run test
 ```
 
 ### docker
 
-```shell
-# 需要写好docker-compose.yml文件
-sh docker-rebuild.sh
-sh docker-restart.sh
-```
+暂时还不行
 
 ## 使用
 
@@ -51,18 +44,13 @@ sh docker-restart.sh
 
 ## 配置
 
-通用:
-
-- conf/mysql.js:数据库相关,形式参考[mysql库](https://www.npmjs.com/package/mysql#pool-options)
-
-docker用:
-
-- conf/docker-use-cnpm:是否使用cnpm(文件存在即使用,下同)
-- conf/docker-use-rmLogOnStart:启动时是否删除日志文件
-- conf/docker-use-test:启动时是否运行测试
+见`config`文件夹.
 
 ## TODO
 
 - https
 - ip白名单
 - 鉴权
+- 日志
+- pm2启动
+- docker
