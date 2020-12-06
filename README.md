@@ -71,3 +71,5 @@ npm run test
 - https
 - ip白名单
 - 更好的日志
+
+## [Change Log](https://github.com/lsby/http_mysql/blob/master/CHANGELOG.md)
