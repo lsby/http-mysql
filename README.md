@@ -41,7 +41,14 @@ npm run docker_start
 
 ## 测试
 
-先弄个mysql,
+先弄个mysql.
+
+用docker的话:
+
+```shell
+docker run --rm --name mysql -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 -d mysql:5.6 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+```
+
 手动建个数据库,
 相关信息写到config/mysql.js配置文件中.
 
