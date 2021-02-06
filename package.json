@@ -1,36 +1,49 @@
 {
-    "name": "http-mysql",
+    "name": "http_mysql",
     "version": "0.0.2",
     "private": true,
     "scripts": {
-        "start": "node ./src/index",
-        "pm2_start": "npx cross-env NODE_ENV=production pm2 set pm2-logrotate:max_size 10M && cross-env NODE_ENV=production PORT=80 pm2 start node -e ./logs/error.log -l ./logs/out.log --name http_mysql ./src/index.js",
-        "pm2_restart": "npx pm2 restart http_mysql",
-        "pm2_stop": "npx pm2 stop http_mysql",
+        "start": "cross-env PORT=80 npx gulp start",
+        "dev": "cross-env PORT=3000 npx gulp dev",
+        "test": "npx gulp test",
+        "pm2_start": "cross-env PORT=80 npx gulp pm2_start",
+        "pm2_restart": "pm2 restart http_mysql",
+        "pm2_stop": "pm2 stop http_mysql",
         "pm2_rm": "npm run pm2_stop && pm2 delete http_mysql",
-        "pm2_list": "npx pm2 list",
-        "pm2_log": "npx pm2 logs",
-        "pm2_setlog": "npx pm2 set pm2-logrotate:max_size 10M",
-        "docker_build": "docker build --no-cache -t http_mysql .",
+        "pm2_list": "pm2 list",
+        "pm2_log": "pm2 logs",
+        "pm2_setlog": "pm2 set pm2-logrotate:max_size 10M",
+        "docker_build": "docker build -t http_mysql .",
         "docker_start": "docker-compose up -d --remove-orphans && npm run docker_log",
         "docker_stop": "docker-compose stop",
         "docker_log": "docker-compose logs -f --tail=\"100\"",
         "docker_rm": "docker-compose stop && docker-compose rm -f",
-        "dev": "npx cross-env NODE_ENV=development nodemon ./src/index.js",
-        "test": "npx mocha --bail"
+        "webpack_build": "webpack --config ./web/webpack/webpack.prod.js",
+        "webpack_analyz": "cross-env analyz=true npm run web_build"
     },
     "dependencies": {
-        "body-parser": "^1.19.0",
+        "core-js": "^3.6.4",
         "cross-env": "^7.0.3",
-        "express": "~4.16.1",
+        "cross-spawn": "^7.0.3",
+        "express": "^4.17.1",
+        "gulp-cli": "^2.3.0",
         "mysql": "^2.18.1",
-        "ramda": "^0.27.1",
-        "request": "^2.88.0"
+        "pm2": "^4.5.4"
     },
     "devDependencies": {
-        "chai": "^4.2.0",
-        "mocha": "^7.2.0",
-        "nodemon": "^2.0.2",
-        "pm2": "^4.5.0"
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "babel-loader": "^8.1.0",
+        "clean-webpack-plugin": "^3.0.0",
+        "esm": "^3.2.25",
+        "mocha": "^8.2.1",
+        "request": "^2.88.2",
+        "source-map-loader": "^0.2.4",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "gulp": "^4.0.2",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-merge": "^4.2.2",
+        "webpack-node-externals": "^2.5.2"
     }
 }

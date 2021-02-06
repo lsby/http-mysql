@@ -1,0 +1,20 @@
+# docker-compose -f ./doc/建立mysql数据库.yml up
+# hostname: localhost
+# hostname: 127.0.0.1
+# port: 3306
+# username: root
+# password: root
+
+version: "3"
+services:
+  oracle_ee_11g:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    ports:
+      - 3306:3306

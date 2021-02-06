@@ -1,6 +1,6 @@
-FROM node:12
+FROM node:14
 ADD . /code
 WORKDIR /code
 ENV HOME=/code
 RUN bash /code/docker/run.sh
-CMD bash /code/docker/cmd.sh
+CMD npm run pm2_start && npm run pm2_log
