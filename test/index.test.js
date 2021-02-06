@@ -3,17 +3,18 @@ var request = require('request')
 var R = require('ramda')
 var toAsync = require('../lib/toAsync')
 
+var 服务地址 = 'http://127.0.0.1:80/runsql'
 var post = R.composeP(JSON.parse, R.prop('1'), (url, form) => toAsync(request.post)({ url, form }))
 
 it('错误sql的情况', async function () {
-    var { err, data } = await post('http://127.0.0.1:80/query', {
+    var { err, data } = await post(服务地址, {
         sql: `aaaaaaaaaa`
     })
     expect(err.code).eq('ER_PARSE_ERROR')
     expect(data).eq(null)
 })
 it('创建表', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `
             CREATE TABLE IF NOT EXISTS tablename(
             id INT UNSIGNED AUTO_INCREMENT,
@@ -25,7 +26,7 @@ it('创建表', async function () {
     var { results, fields } = data
 })
 it('插入', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `INSERT INTO tablename SET ?`,
         values: {
             data: 'a',
@@ -36,7 +37,7 @@ it('插入', async function () {
     expect(results.affectedRows).eq(1)
 })
 it('批量插入', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `INSERT INTO tablename (??) VALUES ?`,
         values: ['data',
             [['b'],
@@ -49,7 +50,7 @@ it('批量插入', async function () {
     expect(results.affectedRows).eq(3)
 })
 it('条件查询', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `select * from ?? where id=? and data=?`,
         values: ['tablename', 1, 'a']
     })
@@ -61,7 +62,7 @@ it('条件查询', async function () {
     ].toString())
 })
 it('查询全部', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `select * from ??`,
         values: ['tablename']
     })
@@ -76,14 +77,14 @@ it('查询全部', async function () {
     ].toString())
 })
 it('更新', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `UPDATE tablename SET ? WHERE ?`,
         values: [{ data: 'e' }, { id: 1 }]
     })
     var { results, fields } = data
 })
 it('验证更新', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `select * from ??`,
         values: ['tablename']
     })
@@ -98,14 +99,14 @@ it('验证更新', async function () {
     ].toString())
 })
 it('删除记录', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `DELETE FROM tablename WHERE ?`,
         values: { data: 'e' }
     })
     var { results, fields } = data
 })
 it('验证删除', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `select * from ??`,
         values: ['tablename']
     })
@@ -119,7 +120,7 @@ it('验证删除', async function () {
     ].toString())
 })
 it('删除表', async function () {
-    var { data } = await post('http://127.0.0.1:80/query', {
+    var { data } = await post(服务地址, {
         sql: `DROP TABLE ??`,
         values: ['tablename']
     })
