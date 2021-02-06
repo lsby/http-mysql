@@ -3,7 +3,6 @@ import app_config from '../config/app'
 import db_config from '../config/db'
 import mysql from 'mysql'
 import os from 'os'
-import util from 'util'
 
 var port = app_config.port
 var pool = mysql.createPool(db_config)
