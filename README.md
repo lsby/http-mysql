@@ -4,7 +4,7 @@
 
 ## 快速开始
 
-1 在`config/db`配置数据库的用户名,密码,地址.
+1 在`config/db`配置数据库的用户名,密码,连接字.
 
 2 安装依赖.
 
@@ -25,8 +25,6 @@ npm run start
 npm run pm2_setlog
 npm run pm2_start
 ```
-
-使用docker:
 
 使用docker:
 
