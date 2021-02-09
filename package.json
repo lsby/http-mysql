@@ -1,6 +1,6 @@
 {
     "name": "http_mysql",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "private": true,
     "scripts": {
         "start": "cross-env PORT=80 npx gulp start",
